@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Chart js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <title>Dashboard</title>
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #333;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding: 20px;
+        }
+
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        /* Customize your sidebar styles */
+        .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin: 10px 0;
+        }
+
+        /* Customize your content styles */
+        .content h2 {
+            font-size: 24px;
+        }
+
+        .content p {
+            font-size: 16px;
+        }
+
+        .widget {
+      flex: 1;
+      padding: 20px;
+      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+    }
+
+    .widget h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .widget p {
+      font-size: 16px;
+    }
+
+    /* Customize your widgets below */
+    .widget1 {
+      background-color: #FF9800;
+    }
+
+    .widget2 {
+      background-color: #4CAF50;
+    }
+
+    .widget3 {
+      background-color: #E91E63;
+    }
+
+
+        
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Dashboard</h1>
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Analytics</a></li>
+            <li><a href="#">Reports</a></li>
+            <li><a href="{% url 'logout' %}">logout</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+    {% block content %}
+    
+    {% endblock %}
+    </div>
+</body>
+</html>
