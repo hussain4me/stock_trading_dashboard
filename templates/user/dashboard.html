@@ -21,12 +21,11 @@
 
     var dataString = ['{% for trade_point in trades %}  {"x":"{{ trade_point.timespan|escapejs }}","y":{{ trade_point.profit_loss }}} {% endfor %}'];
     dataString = dataString.toString();
-    var cleanedDataString = dataString.trim();
-    var objectStrings = cleanedDataString.split(/\s+/);
+    var trimmedData = dataString.trim();
+    var objStrings = trimmedData.split(/\s+/);
 
-    var jsonArrayString = "[" + objectStrings.join(",") + "]";
-    
-    var profitLossD = JSON.parse(jsonArrayString);
+    var jsonArrayString = "[" + objStrings.join(",") + "]";
+
     var profitLossData = JSON.parse(jsonArrayString);
 
       var ctx = document.getElementById('profitLossChart').getContext('2d');
