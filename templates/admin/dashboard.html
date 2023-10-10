@@ -4,64 +4,67 @@
 
 
     <div style="padding-left: 2rem;">
-      <h2>Welcome to Your Dashboard</h2>
-      <p>This is a sample dashboard template. You can customize and add your content here.</p>
+      <h2>Dashboard</h2>
+      <p> Welcome  {{trades.0.user}}</p>
       <div class="container">
-        <div class="widget widget1">
-          <h2>Widget 1</h2>
-          <p>This is a sample widget.</p>
-          
-        </div>
+       
         <div class="widget widget2">
-          <h2>Widget 2</h2>
-          <p>This is another sample widget.</p>
-          <canvas id="myChart" width="400" height="100"></canvas>  
-        </div>
+            <canvas id="profitLossChart" width="400" height="100"></canvas>  
       </div>
 
     </div>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // jquery function
-        $(document).ready(function(){
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ["Hussain", "Abdullahi", "Maryam"], //loop through queryset, 
-                        datasets: [{
-                            label: '# of users',
-                            data: [200,300,100],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)', 
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
-        });
-            });
-        </script>
+      // Fetch the profit/loss data from the server and format it as needed.
+
+    var dataString = ['{% for trade_point in trades %}  {"x":"{{ trade_point.timespan|escapejs }}","y":{{ trade_point.profit_loss }}} {% endfor %}'];
+    dataString = dataString.toString();
+    var cleanedDataString = dataString.trim();
+    var objectStrings = cleanedDataString.split(/\s+/);
+
+    var jsonArrayString = "[" + objectStrings.join(",") + "]";
+    
+    var profitLossD = JSON.parse(jsonArrayString);
+    var profitLossData = JSON.parse(jsonArrayString);
+
+    log(profitLossData)
+      var ctx = document.getElementById('profitLossChart').getContext('2d');
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          datasets: [{
+            label: 'Profit/Loss',
+            borderColor: 'rgb(75, 192, 192)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            data: profitLossData,
+            fill: true,
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: [{
+              type: 'time',
+              time: {
+                unit: 'minute'
+              },
+              title: {
+                display: true,
+                text: 'Timestamp'
+              }
+            }],
+            y: [{
+              title: {
+                display: true,
+                text: 'Profit/Loss'
+              }
+            }]
+          }
+        }
+      });
+    </script>
 
       
 {% endblock %}

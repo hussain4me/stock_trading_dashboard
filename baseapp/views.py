@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -25,11 +25,11 @@ def user_login(request):
         if user is not None:
             login(request, user)
             if user.is_staff and user.is_active:
-                return render(request, 'admin/dashboard.html')
+                return redirect('admin_home')
             elif user.is_staff == False and user.is_active:
-                return render(request, 'user/dashboard.html')
+                return redirect('user_home')
     
-    return render(request, 'login2.html')
+    return render(request, 'login.html')
 
     
 def user_logout(request):
@@ -40,12 +40,14 @@ def user_logout(request):
 
 @login_required(login_url='login')
 def user_dashboard(request):
-    request.auth.user
-    # return HttpResponse("User dashboard")
-    return render(request, 'user\dashboard.html')
-
+    user = request.user.id
+    trades = Trade.objects.filter(user__id=user)
+    context = {'trades': trades}
+    return render(request, 'user/dashboard.html', context)
 
 @login_required(login_url='login')
 def admin_dashboard(request):
-    # return HttpResponse("Admin dashboard")
-    return render(request, 'admin\dashboard.html')
+    # if not request.user.is_staff :
+    trades = Trade.objects.filter()
+    context = {'trades': trades}
+    return render(request, 'admin/dashboard.html', context)

@@ -82,12 +82,9 @@
       background-color: #FF9800;
     }
 
-    .widget2 {
-      background-color: #4CAF50;
-    }
-
-    .widget3 {
-      background-color: #E91E63;
+    .link {
+        color: #ffffff;
+        text-decoration: none;
     }
 
 
@@ -98,11 +95,12 @@
     <div class="sidebar">
         <h1>Dashboard</h1>
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="{% url 'logout' %}">logout</a></li>
+            <li><a class="link" href="#">Home</a></li>
+            <li><a class="link" href="#">Analytics</a></li>
+            <li><a class="link" href="#">Reports</a></li>
+            <li><a class="link" href="{% url 'logout' %}">logout</a></li>
         </ul>
+
     </div>
 
     <div class="content">
