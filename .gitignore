@@ -1,1 +1,3 @@
 *.sqlite3
+autogenerate.py
+autogenerate1.py
